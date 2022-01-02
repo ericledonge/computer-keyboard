@@ -20,6 +20,8 @@ function App() {
     { key: '7', value: '7' },
     { key: '8', value: '8' },
     { key: '9', value: '9' },
+    { key: '-', value: '-' },
+    { key: '=', value: '=' },
     { key: 'BACKSPACE', value: 'DEL' },
   ];
 
@@ -40,7 +42,39 @@ function App() {
     { key: '\\', value: '\\' },
   ];
 
-  const keys = keysRow1.concat(keysRow2);
+  const keysRow3: Array<keyboardKey> = [
+    { key: 'CAPSLOCK', value: 'CAPS', utility: true },
+    { key: 'A', value: 'A' },
+    { key: 'S', value: 'S' },
+    { key: 'D', value: 'D' },
+    { key: 'F', value: 'F' },
+    { key: 'G', value: 'G' },
+    { key: 'H', value: 'H' },
+    { key: 'J', value: 'J' },
+    { key: 'K', value: 'K' },
+    { key: 'L', value: 'L' },
+    { key: ';', value: ';' },
+    { key: "'", value: "'" },
+    { key: 'ENTER', value: 'ENTER', utility: true },
+  ];
+
+  const keysRow4: Array<keyboardKey> = [
+    { key: 'SHIFT1', value: 'SHIFT', utility: true },
+    { key: 'Z', value: 'Z' },
+    { key: 'X', value: 'X' },
+    { key: 'C', value: 'C' },
+    { key: 'V', value: 'V' },
+    { key: 'B', value: 'B' },
+    { key: 'N', value: 'N' },
+    { key: 'M', value: 'M' },
+    { key: ',', value: ',' },
+    { key: '.', value: '.' },
+    { key: ';', value: ';' },
+    { key: '/', value: '/' },
+    { key: 'SHIFT2', value: 'SHIFT', utility: true },
+  ];
+
+  const keys = keysRow1.concat(keysRow2).concat(keysRow3).concat(keysRow4);
 
   const getRandomKey = (keys: Array<keyboardKey>) =>
     keys[Math.round(Math.random() * (keys.length - 1))].key;
@@ -85,84 +119,19 @@ function App() {
       </div>
 
       <div className="row">
-        {/*  <button className="key utility" data-key="CAPSLOCK">*/}
-        {/*    CAPS*/}
-        {/*  </button>*/}
-        {/*  <button className="key" data-key="A">*/}
-        {/*    A*/}
-        {/*  </button>*/}
-        {/*  <button className="key" data-key="S">*/}
-        {/*    S*/}
-        {/*  </button>*/}
-        {/*  <button className="key" data-key="D">*/}
-        {/*    D*/}
-        {/*  </button>*/}
-        {/*  <button className="key" data-key="F">*/}
-        {/*    F*/}
-        {/*  </button>*/}
-        {/*  <button className="key" data-key="G">*/}
-        {/*    G*/}
-        {/*  </button>*/}
-        {/*  <button className="key" data-key="H">*/}
-        {/*    H*/}
-        {/*  </button>*/}
-        {/*  <button className="key" data-key="J">*/}
-        {/*    J*/}
-        {/*  </button>*/}
-        {/*  <button className="key" data-key="K">*/}
-        {/*    K*/}
-        {/*  </button>*/}
-        {/*  <button className="key" data-key="L">*/}
-        {/*    L*/}
-        {/*  </button>*/}
-        {/*  <button className="key" data-key=";">*/}
-        {/*    ;*/}
-        {/*  </button>*/}
-        {/*  <button className="key" data-key="'">*/}
-        {/*    &apos;*/}
-        {/*  </button>*/}
-        {/*  <button className="key utility" data-key="ENTER">*/}
-        {/*    ENTER*/}
-        {/*  </button>*/}
+        {keysRow3.map((key) => (
+          <button key={key.key} className={getClassNames(key)} data-key={key.key}>
+            {key.value}
+          </button>
+        ))}
       </div>
 
       <div className="row">
-        {/*  <button className="key utility" data-key="SHIFT">*/}
-        {/*    SHIFT*/}
-        {/*  </button>*/}
-        {/*  <button className="key" data-key="Z">*/}
-        {/*    Z*/}
-        {/*  </button>*/}
-        {/*  <button className="key" data-key="X">*/}
-        {/*    X*/}
-        {/*  </button>*/}
-        {/*  <button className="key" data-key="C">*/}
-        {/*    C*/}
-        {/*  </button>*/}
-        {/*  <button className="key" data-key="V">*/}
-        {/*    V*/}
-        {/*  </button>*/}
-        {/*  <button className="key" data-key="B">*/}
-        {/*    B*/}
-        {/*  </button>*/}
-        {/*  <button className="key" data-key="N">*/}
-        {/*    N*/}
-        {/*  </button>*/}
-        {/*  <button className="key" data-key="M">*/}
-        {/*    M*/}
-        {/*  </button>*/}
-        {/*  <button className="key" data-key=",">*/}
-        {/*    ,*/}
-        {/*  </button>*/}
-        {/*  <button className="key" data-key=".">*/}
-        {/*    .*/}
-        {/*  </button>*/}
-        {/*  <button className="key" data-key="/">*/}
-        {/*    /*/}
-        {/*  </button>*/}
-        {/*  <button className="key utility" data-key="SHIFT">*/}
-        {/*    SHIFT*/}
-        {/*  </button>*/}
+        {keysRow4.map((key) => (
+          <button key={key.key} className={getClassNames(key)} data-key={key.key}>
+            {key.value}
+          </button>
+        ))}
       </div>
     </div>
   );
