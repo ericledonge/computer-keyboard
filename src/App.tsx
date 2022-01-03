@@ -116,7 +116,7 @@ function App() {
       // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
       tabIndex={0}
       className="keyboard"
-      onKeyPress={(event) => handleKeyEventEmitted(event)}>
+      onKeyPress={(event: any) => handleKeyEventEmitted(event)}>
       <h1>Eyes on the Screen</h1>
       <div className="row">
         {keysRow1.map((key) => (
