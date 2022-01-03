@@ -1,6 +1,6 @@
 import './App.css';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 type keyboardKey = {
   key: string;
@@ -9,6 +9,15 @@ type keyboardKey = {
 };
 
 function App() {
+  const [jigglingKey, setJigglingKey] = useState('');
+
+  const container: React.RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    container?.current?.focus();
+    setJigglingKey(getRandomKey(keys));
+  }, []);
+
   const keysRow1: Array<keyboardKey> = [
     { key: '`', value: '`' },
     { key: '1', value: '1' },
@@ -69,7 +78,6 @@ function App() {
     { key: 'M', value: 'M' },
     { key: ',', value: ',' },
     { key: '.', value: '.' },
-    { key: ';', value: ';' },
     { key: '/', value: '/' },
     { key: 'SHIFT2', value: 'SHIFT', utility: true },
   ];
@@ -78,12 +86,6 @@ function App() {
 
   const getRandomKey = (keys: Array<keyboardKey>) =>
     keys[Math.round(Math.random() * (keys.length - 1))].key;
-
-  const [jigglingKey, setJigglingKey] = useState('');
-
-  useEffect(() => {
-    setJigglingKey(getRandomKey(keys));
-  }, []);
 
   const getClassNames = (key: keyboardKey) => {
     let classNames = 'key';
@@ -99,12 +101,30 @@ function App() {
     return classNames;
   };
 
+  const handleKeyPressed = (key: keyboardKey) => {
+    if (key.key === jigglingKey) setJigglingKey(getRandomKey(keys));
+  };
+
+  const handleKeyEventEmitted = (event: KeyboardEvent) => {
+    if (event.key.toUpperCase() === jigglingKey) setJigglingKey(getRandomKey(keys));
+  };
+
   return (
-    <div className="keyboard">
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+    <div
+      ref={container}
+      // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+      tabIndex={0}
+      className="keyboard"
+      onKeyPress={(event) => handleKeyEventEmitted(event)}>
       <h1>Eyes on the Screen</h1>
       <div className="row">
         {keysRow1.map((key) => (
-          <button key={key.key} className={getClassNames(key)} data-key={key.key}>
+          <button
+            key={key.key}
+            className={getClassNames(key)}
+            data-key={key.key}
+            onClick={() => handleKeyPressed(key)}>
             {key.value}
           </button>
         ))}
@@ -112,7 +132,11 @@ function App() {
 
       <div className="row">
         {keysRow2.map((key) => (
-          <button key={key.key} className={getClassNames(key)} data-key={key.key}>
+          <button
+            key={key.key}
+            className={getClassNames(key)}
+            data-key={key.key}
+            onClick={() => handleKeyPressed(key)}>
             {key.value}
           </button>
         ))}
@@ -120,7 +144,11 @@ function App() {
 
       <div className="row">
         {keysRow3.map((key) => (
-          <button key={key.key} className={getClassNames(key)} data-key={key.key}>
+          <button
+            key={key.key}
+            className={getClassNames(key)}
+            data-key={key.key}
+            onClick={() => handleKeyPressed(key)}>
             {key.value}
           </button>
         ))}
@@ -128,7 +156,11 @@ function App() {
 
       <div className="row">
         {keysRow4.map((key) => (
-          <button key={key.key} className={getClassNames(key)} data-key={key.key}>
+          <button
+            key={key.key}
+            className={getClassNames(key)}
+            data-key={key.key}
+            onClick={() => handleKeyPressed(key)}>
             {key.value}
           </button>
         ))}
